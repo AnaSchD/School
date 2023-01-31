@@ -42,12 +42,13 @@ public class FacultyService {
 
 
     public Collection<Faculty> getOnColor(String color) {
-        ArrayList<Faculty> colorFac = new ArrayList<>();
-        for (Faculty faculty : faculties.values()) {
-            if (faculty.getColor().equals(color)) {
-                colorFac.add(faculty);
-            }
-        }
-        return colorFac;
+//        ArrayList<Faculty> colorFac = new ArrayList<>();
+//        for (Faculty faculty : faculties.values()) {
+//            if (faculty.getColor().equals(color)) {
+//                colorFac.add(faculty);
+//            }
+//        }
+//        return colorFac;
+        return facultyRepository.findByColor(color);
     }
 }

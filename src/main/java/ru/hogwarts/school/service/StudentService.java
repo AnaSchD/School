@@ -41,14 +41,18 @@ public class StudentService {
 //        return students.remove(id);
     }
 
+//    public Collection<Student> getOnAge(long age) {
+//        ArrayList<Student> ageStud = new ArrayList<>();
+//        for (Student student: students.values()) {
+//            if (student.getAge() == age) {
+//                ageStud.add(student);
+//            }
+//        }
+//        return ageStud;
+//    }
+
     public Collection<Student> getOnAge(long age) {
-        ArrayList<Student> ageStud = new ArrayList<>();
-        for (Student student: students.values()) {
-            if (student.getAge() == age) {
-                ageStud.add(student);
-            }
-        }
-        return ageStud;
+        return studentRepository.findByAge(age);
     }
 
 }
