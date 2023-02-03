@@ -1,8 +1,8 @@
 package ru.hogwarts.school.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+//import javax.persistence.GeneratedValue;
+//import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
@@ -10,8 +10,9 @@ public class Student {
 
    @Id
    @GeneratedValue
+   @Column
     private long id;
-    private final String NAME;
+    private String NAME;
 
     private int age;
 
@@ -21,6 +22,9 @@ public class Student {
         this.age = age;
     }
 
+    public Student() {
+
+    }
 
     public String getNAME() {
         return NAME;

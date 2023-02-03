@@ -1,23 +1,32 @@
 package ru.hogwarts.school.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.persistence.*;
+//import javax.persistence.GeneratedValue;
+//import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
 public class Faculty {
     @Id
     @GeneratedValue
+    @Column
     private long id;
-    private final String NAME;
+    private  String NAME;
     private String color;
 
-    public Faculty(long ID, String NAME, String COLOR) {
+
+        public Faculty(long ID, String NAME, String COLOR) {
         this.id = ID;
         this.NAME = NAME;
         this.color = COLOR;
     }
+
+    public Faculty() {
+
+    }
+
 
     public long getId() {
         return id;
