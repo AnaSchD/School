@@ -18,9 +18,9 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-
     public Student createStudent(Student student) {
-        return studentRepository.save(student);
+        Student student1 = studentRepository.save(student);
+        return studentRepository.save(student1);
     }
 
     public Student findStudent(long id) {
@@ -31,35 +31,25 @@ public class StudentService {
         if (studentRepository.existsById(student.getId())) {
             return studentRepository.save(student);
         } return null;
-//        if (!students.containsKey(id)) {
-//            return null;
-//        }
-//        students.put(student.getId(), student);
-//        return student;
     }
 
     public void deleteStudent(long id) {
         studentRepository.deleteById(id);
-//        return students.remove(id);
     }
 
-//    public Collection<Student> getOnAge(long age) {
-//        ArrayList<Student> ageStud = new ArrayList<>();
-//        for (Student student: students.values()) {
-//            if (student.getAge() == age) {
-//                ageStud.add(student);
-//            }
-//        }
-//        return ageStud;
-//    }
+    public Collection<Student> getAllStudents() {
+        return studentRepository.findAll();
+    }
 
     public Collection<Student> getOnAge(long age) {
         return studentRepository.findByAge(age);
     }
 
-    public Collection<Student> getByIdBetween(long ageMin, long ageMax) {
-        return studentRepository.findByIdBetween(ageMin, ageMax);
+    public Collection<Student> getByAgeBetween(long min, long max) {
+        return studentRepository.findByAgeBetween(min, max);
     }
+
+
     
 
 }

@@ -38,6 +38,18 @@ public class FacultyController {
         return ResponseEntity.ok(Collections.emptyList());
     }
 
+    @GetMapping("/nameOrColor")
+    public ResponseEntity<Collection<Faculty>> getByColorOrName(@RequestParam(required = false) String name,
+                                                                @RequestParam(required = false) String color) {
+        if (name != null && !name.isBlank()) {
+            return ResponseEntity.ok(facultyService.getByName(name));
+        }
+        if (color != null && !color.isBlank()) {
+            return ResponseEntity.ok(facultyService.getByColor(color));
+        }
+        return ResponseEntity.ok(Collections.emptyList());
+    }
+
     @PostMapping
     public Faculty createFaculty(@RequestBody Faculty faculty) {
         return facultyService.createFaculty(faculty);
@@ -58,12 +70,5 @@ public class FacultyController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/filter/nameOrColor")
-    public ResponseEntity<Collection<Faculty>> getByColorOrName(@RequestParam(required = false) String name,
-                                                                @RequestParam(required = false) String color) {
-        if (color != null || name != null) {
-            return ResponseEntity.ok(facultyService.getByNameOrColor(name, color));
-        }
-        return ResponseEntity.notFound().build();
-    }
+
 }

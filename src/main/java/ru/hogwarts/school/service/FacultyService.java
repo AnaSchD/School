@@ -18,9 +18,9 @@ public class FacultyService {
         this.facultyRepository = facultyRepository;
     }
 
-
     public Faculty createFaculty(Faculty faculty) {
-        return facultyRepository.save(faculty);
+        Faculty faculty1 = facultyRepository.save(faculty);
+        return facultyRepository.save(faculty1);
     }
 
     public Faculty findFaculty(long id) {
@@ -29,30 +29,22 @@ public class FacultyService {
 
     public Faculty editFaculty(long id, Faculty faculty) {
         return facultyRepository.save(faculty);
-//        if (!faculties.containsKey(id)) {
-//            return null;
-//        }
-//        faculties.put(faculty.getId(), faculty);
-//        return faculty;
     }
 
     public void deleteFaculty(long id) {
         facultyRepository.deleteById(id);
     }
 
-
     public Collection<Faculty> getOnColor(String color) {
-//        ArrayList<Faculty> colorFac = new ArrayList<>();
-//        for (Faculty faculty : faculties.values()) {
-//            if (faculty.getColor().equals(color)) {
-//                colorFac.add(faculty);
-//            }
-//        }
-//        return colorFac;
-        return facultyRepository.findByColor(color);
+        return facultyRepository.findByColorContainsIgnoreCase(color);
     }
 
-    public Collection<Faculty> getByNameOrColor(String name, String color) {
-        return facultyRepository.findByColorIgnoreCaseOrNAMEIgnoreCase(name, color);
+    public Collection<Faculty> getByColor( String color) {
+        return facultyRepository.findByColorIgnoreCase (color);
     }
+
+    public Collection<Faculty> getByName(String name) {
+        return facultyRepository.findByNameIgnoreCase(name);
+    }
+
 }

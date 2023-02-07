@@ -7,27 +7,28 @@ import java.util.Objects;
 
 @Entity
 public class Student {
-
    @Id
    @GeneratedValue
-   @Column
     private long id;
-    private String NAME;
-
+    private String name;
     private int age;
 
-    public Student(String name, long id, int age) {
-        this.NAME = name;
-        this.id = id;
-        this.age = age;
-    }
+    @ManyToOne
+    @JoinColumn (name = "faculty_id")
+    private Faculty faculty;
 
     public Student() {
 
     }
 
-    public String getNAME() {
-        return NAME;
+    public Student (long id, String name, int age) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public long getId() {
@@ -47,18 +48,18 @@ public class Student {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
-        return id == student.id && age == student.age && Objects.equals(NAME, student.NAME);
+        return id == student.id && age == student.age && Objects.equals(name, student.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(NAME, id, age);
+        return Objects.hash(name, id, age);
     }
 
     @Override
     public String toString() {
         return "Student{" +
-                "name='" + NAME + '\'' +
+                "name='" + name + '\'' +
                 ", id=" + id +
                 ", age=" + age +
                 '}';

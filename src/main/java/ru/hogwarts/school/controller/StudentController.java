@@ -56,9 +56,10 @@ public class StudentController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping ("/filter/{age}")
-    public ResponseEntity <Collection <Student>> filterByAge(long ageMin, long ageMax) {
-        return ResponseEntity.ok(studentService.getByIdBetween(ageMin, ageMax));
+    @GetMapping ("/ageBetween")
+    public ResponseEntity <Collection <Student>> getStudentsByAgeBetween (@RequestParam long min,
+                                                                          @RequestParam long max) {
+        return ResponseEntity.ok(studentService.getByAgeBetween(min, max));
     }
 
 }
