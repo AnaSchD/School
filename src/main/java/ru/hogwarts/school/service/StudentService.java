@@ -28,7 +28,9 @@ public class StudentService {
     }
 
     public Student editStudent(long id, Student student) {
-        return studentRepository.save(student);
+        if (studentRepository.existsById(student.getId())) {
+            return studentRepository.save(student);
+        } return null;
 //        if (!students.containsKey(id)) {
 //            return null;
 //        }
@@ -54,5 +56,10 @@ public class StudentService {
     public Collection<Student> getOnAge(long age) {
         return studentRepository.findByAge(age);
     }
+
+    public Collection<Student> getByIdBetween(long ageMin, long ageMax) {
+        return studentRepository.findByIdBetween(ageMin, ageMax);
+    }
+    
 
 }

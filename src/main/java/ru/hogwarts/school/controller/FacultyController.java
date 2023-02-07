@@ -22,7 +22,7 @@ public class FacultyController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity <Faculty> getFacultyInfo(@PathVariable long id) {
+    public ResponseEntity<Faculty> getFacultyInfo(@PathVariable long id) {
         Faculty faculty = facultyService.findFaculty(id);
         if (faculty == null) {
             return ResponseEntity.notFound().build();
@@ -31,7 +31,7 @@ public class FacultyController {
     }
 
     @GetMapping("/color")
-    public ResponseEntity <Collection<Faculty>> getOnColor(String color) {
+    public ResponseEntity<Collection<Faculty>> getOnColor(String color) {
         if (color != null && !color.isBlank()) {
             return ResponseEntity.ok(facultyService.getOnColor(color));
         }
@@ -44,7 +44,7 @@ public class FacultyController {
     }
 
     @PutMapping
-    public ResponseEntity <Faculty> editFaculty(@RequestBody Faculty faculty, long id) {
+    public ResponseEntity<Faculty> editFaculty(@RequestBody Faculty faculty, long id) {
         Faculty foundFaculty = facultyService.editFaculty(id, faculty);
         if (foundFaculty == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -52,10 +52,18 @@ public class FacultyController {
         return ResponseEntity.ok(faculty);
     }
 
-    @DeleteMapping ("{id}")
-    public ResponseEntity <Void> deleteFaculty (@PathVariable long id) {
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deleteFaculty(@PathVariable long id) {
         facultyService.deleteFaculty(id);
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/filter/nameOrColor")
+    public ResponseEntity<Collection<Faculty>> getByColorOrName(@RequestParam(required = false) String name,
+                                                                @RequestParam(required = false) String color) {
+        if (color != null || name != null) {
+            return ResponseEntity.ok(facultyService.getByNameOrColor(name, color));
+        }
+        return ResponseEntity.notFound().build();
+    }
 }
