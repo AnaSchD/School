@@ -60,9 +60,6 @@ public class FacultyService {
         return facultyRepository.findByNameIgnoreCase(name);
     }
 
-    public Collection<Faculty> getStudentsByFaculties(long id) //метод получения студентов факультета
-    {
-        return facultyRepository.findFacultyByStudents(id);
-    }
+
 
 }
