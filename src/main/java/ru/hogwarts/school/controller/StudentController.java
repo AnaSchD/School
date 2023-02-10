@@ -28,20 +28,26 @@ public class StudentController {
         return ResponseEntity.ok(student);
     }
 
+    @GetMapping("/allStudents")
+    public Collection<Student> getAllStudents() {
+        return studentService.getAllStudents();
+    }
+
     @GetMapping("/age")
-    public ResponseEntity <Collection<Student>> getOnAge(long age) {
+    public ResponseEntity<Collection<Student>> getOnAge(long age) {
+
         if (age != 0) {
             return ResponseEntity.ok(studentService.getOnAge(age));
         }
         return ResponseEntity.ok(Collections.emptyList());
     }
 
-    @PostMapping
+    @PostMapping ("/createStudents")
     public Student createStudent(@RequestBody Student student) {
         return studentService.createStudent(student);
     }
 
-    @PutMapping
+    @PutMapping ("/editStudents")
     public ResponseEntity <Student> editStudent(@RequestBody Student student, long id) {
         Student foundStudent = studentService.editStudent(id, student);
         if (foundStudent == null) {

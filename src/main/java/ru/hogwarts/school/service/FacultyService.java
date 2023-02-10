@@ -14,36 +14,48 @@ public class FacultyService {
 
     private final FacultyRepository facultyRepository;
 
-    public FacultyService(FacultyRepository facultyRepository) {
+    public FacultyService(FacultyRepository facultyRepository) //конструктор
+    {
         this.facultyRepository = facultyRepository;
     }
 
-    public Faculty createFaculty(Faculty faculty) {
-        Faculty faculty1 = facultyRepository.save(faculty);
-        return facultyRepository.save(faculty1);
-    }
-
-    public Faculty findFaculty(long id) {
-        return facultyRepository.findById(id).get();
-    }
-
-    public Faculty editFaculty(long id, Faculty faculty) {
+    public Faculty createFaculty(Faculty faculty) //метод добавления факультета
+    {
+//        Faculty faculty1 = facultyRepository.save(faculty);
         return facultyRepository.save(faculty);
     }
 
-    public void deleteFaculty(long id) {
+    public Faculty findFaculty(long id) //метод получения факультета по id
+    {
+        return facultyRepository.findById(id).get();
+    }
+
+    public Collection<Faculty> getAllFaculties() {
+        return facultyRepository.findAll();
+    }
+
+    public Faculty editFaculty(long id, Faculty faculty) //метод редактирования факультета
+    {
+        return facultyRepository.save(faculty);
+    }
+
+    public void deleteFaculty(long id) //метод удаления факультета
+    {
         facultyRepository.deleteById(id);
     }
 
-    public Collection<Faculty> getOnColor(String color) {
+    public Collection<Faculty> getOnColor(String color) //метод получения факультета по цвету
+    {
         return facultyRepository.findByColorContainsIgnoreCase(color);
     }
 
-    public Collection<Faculty> getByColor( String color) {
+    public Collection<Faculty> getByColor( String color) //метод получения факультета по цвету
+    {
         return facultyRepository.findByColorIgnoreCase (color);
     }
 
-    public Collection<Faculty> getByName(String name) {
+    public Collection<Faculty> getByName(String name) //метод получения факультета по названию
+    {
         return facultyRepository.findByNameIgnoreCase(name);
     }
 

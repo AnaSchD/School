@@ -14,38 +14,45 @@ public class StudentService {
 
     private final StudentRepository studentRepository;
 
-    public StudentService(StudentRepository studentRepository) {
+    public StudentService(StudentRepository studentRepository) // конструктор
+    {
         this.studentRepository = studentRepository;
     }
 
-    public Student createStudent(Student student) {
-        Student student1 = studentRepository.save(student);
-        return studentRepository.save(student1);
+    public Student createStudent(Student student) // метод добавления студентов
+    {
+        return studentRepository.save(student);
     }
 
-    public Student findStudent(long id) {
+    public Student findStudent(long id) //метод получения студентов по id
+    {
         return studentRepository.findById(id).get();
     }
 
-    public Student editStudent(long id, Student student) {
+    public Student editStudent(long id, Student student) //метод редактирования студентов
+    {
         if (studentRepository.existsById(student.getId())) {
             return studentRepository.save(student);
         } return null;
     }
 
-    public void deleteStudent(long id) {
+    public void deleteStudent(long id) // метод удаления студентов
+    {
         studentRepository.deleteById(id);
     }
 
-    public Collection<Student> getAllStudents() {
+    public Collection<Student> getAllStudents() //метод получения всех студентов
+    {
         return studentRepository.findAll();
     }
 
-    public Collection<Student> getOnAge(long age) {
+    public Collection<Student> getOnAge(long age) //метод получения студентов по возрасту
+    {
         return studentRepository.findByAge(age);
     }
 
-    public Collection<Student> getByAgeBetween(long min, long max) {
+    public Collection<Student> getByAgeBetween(long min, long max) //метод получения студентов по заданным параметрам мин/макс
+    {
         return studentRepository.findByAgeBetween(min, max);
     }
 

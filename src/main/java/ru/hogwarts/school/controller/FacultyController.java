@@ -38,9 +38,15 @@ public class FacultyController {
         return ResponseEntity.ok(Collections.emptyList());
     }
 
+    @GetMapping("/allFaculties")
+    public Collection<Faculty> getAllFaculties() {
+        return facultyService.getAllFaculties();
+    }
+
     @GetMapping("/nameOrColor")
     public ResponseEntity<Collection<Faculty>> getByColorOrName(@RequestParam(required = false) String name,
                                                                 @RequestParam(required = false) String color) {
+
         if (name != null && !name.isBlank()) {
             return ResponseEntity.ok(facultyService.getByName(name));
         }
@@ -50,12 +56,12 @@ public class FacultyController {
         return ResponseEntity.ok(Collections.emptyList());
     }
 
-    @PostMapping
+    @PostMapping ("/createFaculties")
     public Faculty createFaculty(@RequestBody Faculty faculty) {
         return facultyService.createFaculty(faculty);
     }
 
-    @PutMapping
+    @PutMapping ("editFaculties")
     public ResponseEntity<Faculty> editFaculty(@RequestBody Faculty faculty, long id) {
         Faculty foundFaculty = facultyService.editFaculty(id, faculty);
         if (foundFaculty == null) {
