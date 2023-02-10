@@ -61,5 +61,8 @@ public class FacultyService {
     }
 
 
+    public Collection<Faculty> getStudentByFaculty(long id) {
+        return facultyRepository.findFacultyByStudents(id);
+    }
 
 }

@@ -1,6 +1,7 @@
 package ru.hogwarts.school.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositories.StudentRepository;
@@ -58,7 +59,7 @@ public class StudentService {
 
     public Collection<Student> getFacultiesByStudents(long id) //метод получения факультета студента
     {
-        return studentRepository.findStudentByFacultyId(id);
+        return studentRepository.findStudentsByFacultyId(id);
     }
 
 }
