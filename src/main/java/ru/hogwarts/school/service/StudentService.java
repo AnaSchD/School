@@ -3,6 +3,7 @@ package ru.hogwarts.school.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositories.StudentRepository;
 
@@ -57,9 +58,10 @@ public class StudentService {
         return studentRepository.findByAgeBetween(min, max);
     }
 
-    public Collection<Student> getFacultiesByStudents(long id) //метод получения факультета студента
-    {
-        return studentRepository.findStudentsByFacultyId(id);
+    public Faculty getFacultyByStudent(long id) {
+        return findStudent(id).getFaculty();
     }
+
+
 
 }

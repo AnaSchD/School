@@ -43,6 +43,11 @@ public class FacultyController {
         return facultyService.getAllFaculties();
     }
 
+    @GetMapping("/{id}/students")
+    public Collection <Student> getStudentsByFaculty(@PathVariable long id) {
+        return facultyService.getStudentsByFaculty(id);
+    }
+
     @GetMapping("/nameOrColor")
     public ResponseEntity<Collection<Faculty>> getByColorOrName(@RequestParam(required = false) String name,
                                                                 @RequestParam(required = false) String color) {
@@ -54,11 +59,6 @@ public class FacultyController {
             return ResponseEntity.ok(facultyService.getByColor(color));
         }
         return ResponseEntity.ok(Collections.emptyList());
-    }
-
-    @GetMapping("/stByfac")
-    public Collection<Faculty> getFacultiesByStudent(long id) {
-        return facultyService.getStudentByFaculty(id);
     }
 
 
