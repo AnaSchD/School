@@ -56,6 +56,11 @@ public class StudentService {
         return studentRepository.findByAgeBetween(min, max);
     }
 
+    public Collection<Student> getFacultiesByStudents(long id) //метод получения факультета студента
+    {
+        return studentRepository.findStudentByFacultyId(id);
+    }
+
 
     
 

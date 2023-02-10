@@ -30,7 +30,8 @@ public class FacultyService {
         return facultyRepository.findById(id).get();
     }
 
-    public Collection<Faculty> getAllFaculties() {
+    public Collection<Faculty> getAllFaculties()
+    {
         return facultyRepository.findAll();
     }
 
@@ -57,6 +58,11 @@ public class FacultyService {
     public Collection<Faculty> getByName(String name) //метод получения факультета по названию
     {
         return facultyRepository.findByNameIgnoreCase(name);
+    }
+
+    public Collection<Faculty> getStudentsByFaculties(long id) //метод получения студентов факультета
+    {
+        return facultyRepository.findFacultyByStudents(id);
     }
 
 }

@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 @RestController
-@RequestMapping ("students")
+@RequestMapping("students")
 public class StudentController {
 
     private final StudentService studentService;
@@ -19,7 +19,7 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @GetMapping ("{id}")
+    @GetMapping("{id}")
     public ResponseEntity<Student> getStudentInfo(@PathVariable long id) {
         Student student = studentService.findStudent(id);
         if (student == null) {
@@ -42,13 +42,13 @@ public class StudentController {
         return ResponseEntity.ok(Collections.emptyList());
     }
 
-    @PostMapping ("/createStudents")
+    @PostMapping("/createStudents")
     public Student createStudent(@RequestBody Student student) {
         return studentService.createStudent(student);
     }
 
-    @PutMapping ("/editStudents")
-    public ResponseEntity <Student> editStudent(@RequestBody Student student, long id) {
+    @PutMapping("/editStudents")
+    public ResponseEntity<Student> editStudent(@RequestBody Student student, long id) {
         Student foundStudent = studentService.editStudent(id, student);
         if (foundStudent == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -56,16 +56,20 @@ public class StudentController {
         return ResponseEntity.ok(student);
     }
 
-    @DeleteMapping ("{id}")
-    public ResponseEntity <Student> deleteStudent (@PathVariable long id) {
+    @DeleteMapping("{id}")
+    public ResponseEntity<Student> deleteStudent(@PathVariable long id) {
         studentService.deleteStudent(id);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping ("/ageBetween")
-    public ResponseEntity <Collection <Student>> getStudentsByAgeBetween (@RequestParam long min,
-                                                                          @RequestParam long max) {
+    @GetMapping("/ageBetween")
+    public ResponseEntity<Collection<Student>> getStudentsByAgeBetween(@RequestParam long min,
+                                                                       @RequestParam long max) {
         return ResponseEntity.ok(studentService.getByAgeBetween(min, max));
     }
 
+    @GetMapping("/facultyStudent")
+    public Collection<Student> getFacultyByStudent(long id) {
+        return studentService.getFacultiesByStudents(id);
+    }
 }

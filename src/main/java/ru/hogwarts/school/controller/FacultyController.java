@@ -56,6 +56,11 @@ public class FacultyController {
         return ResponseEntity.ok(Collections.emptyList());
     }
 
+    @GetMapping("/getStudentFaculty")
+    public Collection<Faculty> getStudentsFaculty(long id) {
+        return facultyService.getStudentsByFaculties(id);
+    }
+
     @PostMapping ("/createFaculties")
     public Faculty createFaculty(@RequestBody Faculty faculty) {
         return facultyService.createFaculty(faculty);
