@@ -36,10 +36,10 @@ public class StudentController {
     }
 
     @GetMapping("/age")
-    public ResponseEntity<Collection<Student>> getOnAge(@PathVariable("age") long age) {
+    public ResponseEntity<Collection<Student>> getOnAge(@RequestParam (required = false) String name, long age) {
 
         if (age != 0) {
-            return ResponseEntity.ok(studentService.getOnAge(age));
+            return ResponseEntity.ok(studentService.getOnAge(name, age));
         }
         return ResponseEntity.ok(Collections.emptyList());
     }
