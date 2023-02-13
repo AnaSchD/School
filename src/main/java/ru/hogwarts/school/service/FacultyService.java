@@ -1,14 +1,11 @@
 package ru.hogwarts.school.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositories.FacultyRepository;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 
 @Service
 public class FacultyService {
@@ -31,8 +28,7 @@ public class FacultyService {
         return facultyRepository.findById(id).get();
     }
 
-    public Collection<Faculty> getAllFaculties()
-    {
+    public Collection<Faculty> getAllFaculties() {
         return facultyRepository.findAll();
     }
 
@@ -51,9 +47,9 @@ public class FacultyService {
         return facultyRepository.findByColorContainsIgnoreCase(color);
     }
 
-    public Collection<Faculty> getByColor( String color) //метод получения факультета по цвету
+    public Collection<Faculty> getByColor(String color) //метод получения факультета по цвету
     {
-        return facultyRepository.findByColorIgnoreCase (color);
+        return facultyRepository.findByColorIgnoreCase(color);
     }
 
     public Collection<Faculty> getByName(String name) //метод получения факультета по названию
@@ -61,8 +57,8 @@ public class FacultyService {
         return facultyRepository.findByNameIgnoreCase(name);
     }
 
-    public Collection<Student> getStudentsByFaculty(long id) {
-       return findFaculty(id).getStudents();
+    public Collection<Student> getStudentsByFaculty(long facultyId) {
+        return findFaculty(facultyId).getStudents();
     }
 
 

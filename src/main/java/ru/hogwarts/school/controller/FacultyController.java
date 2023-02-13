@@ -1,6 +1,7 @@
 package ru.hogwarts.school.controller;
 
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.models.parameters.PathParameter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,11 +44,6 @@ public class FacultyController {
         return facultyService.getAllFaculties();
     }
 
-    @GetMapping("/{id}/students")
-    public Collection <Student> getStudentsByFaculty(@PathVariable long id) {
-        return facultyService.getStudentsByFaculty(id);
-    }
-
     @GetMapping("/nameOrColor")
     public ResponseEntity<Collection<Faculty>> getByColorOrName(@RequestParam(required = false) String name,
                                                                 @RequestParam(required = false) String color) {
@@ -68,7 +64,7 @@ public class FacultyController {
         return facultyService.createFaculty(faculty);
     }
 
-    @PutMapping ("editFaculties")
+    @PutMapping("editFaculties")
     public ResponseEntity<Faculty> editFaculty(@RequestBody Faculty faculty, long id) {
         Faculty foundFaculty = facultyService.editFaculty(id, faculty);
         if (foundFaculty == null) {
@@ -83,5 +79,8 @@ public class FacultyController {
         return ResponseEntity.ok().build();
     }
 
-
+    @GetMapping("/{id}/allStudentsFaculty")
+    public Collection<Student> getStudentsFaculty(@PathVariable long id) {
+        return facultyService.getStudentsByFaculty(id);
+    }
 }

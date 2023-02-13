@@ -13,8 +13,8 @@ public class Student {
     private String name;
     private int age;
 
-    @ManyToOne
-    @JoinColumn (name = "faculty_id")
+    @ManyToOne (fetch = FetchType.LAZY)
+    @JoinColumn(name = "faculty_id")
     private Faculty faculty;
 
     public Student() {
@@ -64,7 +64,7 @@ public class Student {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
-        return id == student.id && age == student.age && Objects.equals(name, student.name) && Objects.equals(faculty, student.faculty);
+        return id == student.id && age == student.age && name.equals(student.name) && faculty.equals(student.faculty);
     }
 
     @Override
