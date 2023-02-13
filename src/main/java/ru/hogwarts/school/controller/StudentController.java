@@ -7,7 +7,6 @@ import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
-import javax.websocket.server.PathParam;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -36,7 +35,7 @@ public class StudentController {
     }
 
     @GetMapping("/age")
-    public ResponseEntity<Collection<Student>> getOnAge(@RequestParam int age) {
+    public ResponseEntity<Collection<Student>> getOnAge(long age) {
 
         if (age != 0) {
             return ResponseEntity.ok(studentService.getOnAge(age));
@@ -44,10 +43,8 @@ public class StudentController {
         return ResponseEntity.ok(Collections.emptyList());
     }
 
-
     @PostMapping("/createStudents")
     public Student createStudent(@RequestBody Student student) {
-
         return studentService.createStudent(student);
     }
 
@@ -67,14 +64,14 @@ public class StudentController {
     }
 
     @GetMapping("/ageBetween")
-    public ResponseEntity<Collection<Student>> getStudentsByAgeBetween(@RequestParam int min,
-                                                                       @RequestParam int max) {
+    public ResponseEntity<Collection<Student>> getStudentsByAgeBetween(@RequestParam long min,
+                                                                       @RequestParam long max) {
         return ResponseEntity.ok(studentService.getByAgeBetween(min, max));
     }
 
-    @GetMapping("{id}/facultyStudent")
-    public Faculty getFacultyStudent (@PathVariable long id) {
-        return studentService.getFacultyStudent(id);
+    @GetMapping("/{id}/faculties")
+    public Faculty getFacultyByStudent(@PathVariable long id) {
+        return studentService.getFacultyByStudent(id);
     }
 
 

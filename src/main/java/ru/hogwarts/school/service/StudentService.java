@@ -48,18 +48,20 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
-    public Collection<Student> getOnAge(int age) //метод получения студентов по возрасту
+    public Collection<Student> getOnAge(long age) //метод получения студентов по возрасту
     {
         return studentRepository.findByAge(age);
     }
 
-    public Collection<Student> getByAgeBetween(int min, int max) //метод получения студентов по заданным параметрам мин/макс
+    public Collection<Student> getByAgeBetween(long min, long max) //метод получения студентов по заданным параметрам мин/макс
     {
-        return studentRepository.findStudentsByAgeIsBetween (min, max);
+        return studentRepository.findByAgeBetween(min, max);
     }
 
-    public Faculty getFacultyStudent(long studentId) {
-        return studentRepository.findById(studentId).get().getFaculty();
+    public Faculty getFacultyByStudent(long id) {
+        return findStudent(id).getFaculty();
     }
+
+
 
 }
