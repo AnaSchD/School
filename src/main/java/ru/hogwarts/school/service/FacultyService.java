@@ -22,7 +22,6 @@ public class FacultyService {
 
     public Faculty createFaculty(Faculty faculty) //метод добавления факультета
     {
-//        Faculty faculty1 = facultyRepository.save(faculty);
         return facultyRepository.save(faculty);
     }
 
@@ -31,7 +30,7 @@ public class FacultyService {
         return facultyRepository.findById(id).get();
     }
 
-    public Collection<Faculty> getAllFaculties()
+    public Collection<Faculty> getAllFaculties() //все факультеты
     {
         return facultyRepository.findAll();
     }

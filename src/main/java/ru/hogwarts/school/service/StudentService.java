@@ -60,8 +60,10 @@ public class StudentService {
 
     public Faculty getFacultyByStudent(long studentId) //метод получения факультета по студенту
     {
-        return studentRepository.findById(studentId).get().getFaculty();
+        return studentRepository.findById(studentId).map(Student::getFaculty).orElse(null);
     }
+
+
 
 
 
