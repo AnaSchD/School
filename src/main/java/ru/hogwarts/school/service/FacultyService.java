@@ -61,8 +61,8 @@ public class FacultyService {
         return facultyRepository.findByNameIgnoreCase(name);
     }
 
-    public Collection<Student> getStudentsByFaculty(long id) {
-       return findFaculty(id).getStudents();
+    public Collection<Student> getStudentsByFaculty(long facultyId) {
+       return facultyRepository.findById(facultyId).get().getStudents();
     }
 
 

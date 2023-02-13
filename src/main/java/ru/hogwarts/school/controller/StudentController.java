@@ -35,7 +35,7 @@ public class StudentController {
     }
 
     @GetMapping("/age")
-    public ResponseEntity<Collection<Student>> getOnAge(long age) {
+    public ResponseEntity<Collection<Student>> getOnAge(int age) {
 
         if (age != 0) {
             return ResponseEntity.ok(studentService.getOnAge(age));
@@ -64,8 +64,8 @@ public class StudentController {
     }
 
     @GetMapping("/ageBetween")
-    public ResponseEntity<Collection<Student>> getStudentsByAgeBetween(@RequestParam long min,
-                                                                       @RequestParam long max) {
+    public ResponseEntity<Collection<Student>> getStudentsByAgeBetween(@RequestParam int min,
+                                                                       @RequestParam int max) {
         return ResponseEntity.ok(studentService.getByAgeBetween(min, max));
     }
 
