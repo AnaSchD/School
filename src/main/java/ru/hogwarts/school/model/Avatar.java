@@ -10,7 +10,7 @@ public class Avatar {
     @Id
     @GeneratedValue
     private Long id;
-    private Long fileSize; //размер файла
+    private int fileSize; //размер файла
     private String filePath; //путь до файла на диске
     private String mediaType; //тип файла
 
@@ -20,7 +20,7 @@ public class Avatar {
     @OneToOne
     private Student student;
 
-    public Avatar(Long id, Long fileSize, String filePath, String mediaType, byte[] data, Student student) {
+    public Avatar(Long id, int fileSize, String filePath, String mediaType, byte[] data, Student student) {
         this.id = id;
         this.fileSize = fileSize;
         this.filePath = filePath;
@@ -42,11 +42,11 @@ public class Avatar {
         this.id = id;
     }
 
-    public Long getFileSize() {
+    public int getFileSize() {
         return fileSize;
     }
 
-    public void setFileSize(Long fileSize) {
+    public void setFileSize(int fileSize) {
         this.fileSize = fileSize;
     }
 
@@ -87,9 +87,7 @@ public class Avatar {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Avatar avatar = (Avatar) o;
-        return id.equals(avatar.id) && fileSize.equals(avatar.fileSize) && filePath.equals(avatar.filePath)
-                && mediaType.equals(avatar.mediaType) && Arrays.equals(data, avatar.data)
-                && student.equals(avatar.student);
+        return fileSize == avatar.fileSize && id.equals(avatar.id) && filePath.equals(avatar.filePath) && mediaType.equals(avatar.mediaType) && Arrays.equals(data, avatar.data) && student.equals(avatar.student);
     }
 
     @Override

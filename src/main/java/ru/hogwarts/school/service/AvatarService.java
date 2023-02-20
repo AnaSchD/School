@@ -7,10 +7,14 @@ import ru.hogwarts.school.model.Avatar;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositories.AvatarRepository;
 
+import javax.imageio.ImageIO;
 import javax.transaction.Transactional;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Optional;
 
 
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
@@ -48,14 +52,32 @@ public class AvatarService {
         Avatar avatar = findAvatar(studentId);
         avatar.setStudent(student);
         avatar.setFilePath(filePath.toString());
-        avatar.setFileSize(avatarFile.getSize());
+        avatar.setFileSize((int) avatarFile.getSize());
         avatar.setMediaType(avatarFile.getContentType());
-        avatar.setData(avatarFile.getBytes());
+        avatar.setData(generateDataForSB(filePath));
 
         avatarRepository.save(avatar);
     }
 
-    private Avatar findAvatar(Long studentId) //метод поиска аватара
+    private byte[] generateDataForSB(Path filePath) throws IOException {
+        try (
+                InputStream inputStream = Files.newInputStream(filePath);
+                BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream, 1024);
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
+            BufferedImage image = ImageIO.read(bufferedInputStream);
+
+            int height = image.getHeight() / (image.getWidth() / 100);
+            BufferedImage preview = new BufferedImage(100, height, image.getType());
+            Graphics2D graphics2D = preview.createGraphics();
+            graphics2D.drawImage(image, 0, 0, 100, height, null);
+            graphics2D.dispose();
+
+            ImageIO.write(preview, getExtension(filePath.getFileName().toString()), byteArrayOutputStream);
+            return byteArrayOutputStream.toByteArray();
+        }
+    }
+
+    public Avatar findAvatar(Long studentId) //метод поиска аватара
     {
         return avatarRepository.findByStudentId(studentId);
     }
