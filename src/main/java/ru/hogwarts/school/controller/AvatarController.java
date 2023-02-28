@@ -10,7 +10,6 @@ import ru.hogwarts.school.model.Avatar;
 import ru.hogwarts.school.service.AvatarService;
 
 import javax.servlet.http.HttpServletResponse;
-import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -21,7 +20,11 @@ import java.nio.file.Path;
 @RequestMapping("/avatar")
 public class AvatarController {
 
-    private AvatarService avatarService;
+    private final AvatarService avatarService;
+
+    public AvatarController(AvatarService avatarService) {
+        this.avatarService = avatarService;
+    }
 
     @PostMapping(value = "/{studentId}/avatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> uploadAvatar(@PathVariable Long studentId, @RequestParam MultipartFile avatar) throws IOException {
@@ -31,7 +34,7 @@ public class AvatarController {
 
     @GetMapping(value = "{id}/avatar/preview")
     public ResponseEntity<byte[]> downloadAvatar(@PathVariable long id) {
-        Avatar avatar = avatarService.findAvatar(id);
+        Avatar avatar = avatarService.findAvatar(id).orElseThrow();
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType(avatar.getMediaType()));
@@ -43,7 +46,7 @@ public class AvatarController {
     @GetMapping(value = "{id}/avatar")
     public void downloadAvatar(@PathVariable long id, HttpServletResponse response) throws IOException {
 
-        Avatar avatar = avatarService.findAvatar(id);
+        Avatar avatar = avatarService.findAvatar(id).orElseThrow();
 
         Path path = Path.of(avatar.getFilePath());
 

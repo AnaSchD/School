@@ -16,7 +16,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 
-
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
 @Service
@@ -49,7 +48,7 @@ public class AvatarService {
             bufferedInputStream.transferTo(bufferedOutputStream);
         }
 
-        Avatar avatar = findAvatar(studentId);
+        Avatar avatar = avatarRepository.findByStudentId(studentId).orElse(new Avatar());
         avatar.setStudent(student);
         avatar.setFilePath(filePath.toString());
         avatar.setFileSize((int) avatarFile.getSize());
@@ -77,7 +76,7 @@ public class AvatarService {
         }
     }
 
-    public Avatar findAvatar(Long studentId) //метод поиска аватара
+    public Optional <Avatar> findAvatar(Long studentId) //метод поиска аватара
     {
         return avatarRepository.findByStudentId(studentId);
     }
