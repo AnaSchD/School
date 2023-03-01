@@ -32,7 +32,7 @@ public class AvatarController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping(value = "{id}/avatar/preview")
+    @GetMapping(value = "/{id}/avatar/preview")
     public ResponseEntity<byte[]> downloadAvatar(@PathVariable long id) {
         Avatar avatar = avatarService.findAvatar(id).orElseThrow();
 
@@ -43,7 +43,7 @@ public class AvatarController {
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(avatar.getData());
     }
 
-    @GetMapping(value = "{id}/avatar")
+    @GetMapping(value = "/{id}/avatar")
     public void downloadAvatar(@PathVariable long id, HttpServletResponse response) throws IOException {
 
         Avatar avatar = avatarService.findAvatar(id).orElseThrow();
