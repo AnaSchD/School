@@ -63,6 +63,18 @@ public class StudentService {
         return studentRepository.findById(studentId).map(Student::getFaculty).orElse(null);
     }
 
+    public double getAverageAge() {
+        return studentRepository.getAverageAge();
+    }
+
+    public Integer getAllStud() {
+        return studentRepository.getAllStudents();
+    }
+
+    public Collection<Student> getLastStudents() {
+        return studentRepository.getLastStudent();
+    }
+
 
 
 
