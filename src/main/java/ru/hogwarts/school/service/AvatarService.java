@@ -38,7 +38,7 @@ public class AvatarService {
     {
         Student student = studentService.findStudent(studentId);
 
-        Path filePath = Path.of(avatarDir, student + "." + getExtension(avatarFile.getOriginalFilename()));
+        Path filePath = Path.of(avatarDir, student.getId() + "." + getExtension(avatarFile.getOriginalFilename()));
         Files.createDirectories(filePath.getParent());
         Files.deleteIfExists(filePath);
 
