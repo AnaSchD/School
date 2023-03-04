@@ -40,7 +40,7 @@ public class StudentService {
 
     public Student editStudent(long id, Student student) //метод редактирования студентов
     {
-        logger.info ("Был вызван метод для редактирования студента: {} ", student);
+        logger.debug ("Был вызван метод для редактирования студента: {} ", student);
         if (studentRepository.existsById(student.getId())) {
             return studentRepository.save(student);
         } return null;
@@ -48,7 +48,7 @@ public class StudentService {
 
     public void deleteStudent(long id) // метод удаления студентов
     {
-        logger.info ("Был вызван метод для удаления студента по id: {} ", id);
+        logger.debug ("Был вызван метод для удаления студента по id: {} ", id);
         studentRepository.deleteById(id);
     }
 
