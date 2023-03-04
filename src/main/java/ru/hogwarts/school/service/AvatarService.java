@@ -1,5 +1,7 @@
 package ru.hogwarts.school.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,8 @@ import static java.nio.file.StandardOpenOption.CREATE_NEW;
 @Transactional
 public class AvatarService {
 
+    Logger logger = LoggerFactory.getLogger(FacultyService.class);
+
     @Value("${path.to.avatar.folder}")
     private String avatarDir;
     private final StudentService studentService; //работа с методами
@@ -36,6 +40,7 @@ public class AvatarService {
 
     public void uploadAvatar(Long studentId, MultipartFile avatarFile) throws IOException //метод загрузки аватара
     {
+        logger.error("Был вызван метод загрузки аватара for {} file {}", studentId, avatarFile);
         Student student = studentService.findStudent(studentId);
 
         Path filePath = Path.of(avatarDir, student.getId() + "." + getExtension(avatarFile.getOriginalFilename()));
@@ -58,10 +63,13 @@ public class AvatarService {
         avatar.setData(generateDataForSB(filePath));
 
         avatarRepository.save(avatar);
+        logger.info ("Аватар для студента с id {} file {}: успешно загружен", studentId, avatarFile);
     }
 
     private byte[] generateDataForSB(Path filePath) throws IOException {
+        logger.error ("Метод для уменьшения размера изображения по заданным параметрам {}: ", filePath);
         try (
+
                 InputStream inputStream = Files.newInputStream(filePath);
                 BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream, 1024);
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
@@ -80,15 +88,19 @@ public class AvatarService {
 
     public Optional <Avatar> findAvatar(Long studentId) //метод поиска аватара
     {
+        logger.info("Был вызван метод поиска аватара {}", studentId);
+
         return Optional.of(avatarRepository.findByStudentId(studentId).orElse(new Avatar()));
     }
 
     private String getExtension(String fileName) {
+        logger.info("Был вызван метод расширения {}", fileName);
         return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
 
 
     public List <Avatar> getAllAvatars(Integer pageNumber, Integer pageSize) {
+        logger.info( "Был вызван метод получения аватара постранично {} {}", pageNumber, pageSize);
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
         return avatarRepository.findAll(pageRequest).getContent();
     }
