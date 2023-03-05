@@ -12,6 +12,9 @@ import ru.hogwarts.school.repositories.StudentRepository;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @Service
@@ -92,7 +95,26 @@ public class StudentService {
     }
 
 
+    public List<Student> getAllStudentsUpCase()
+    {
+        logger.info ("Был вызван метод получения всех студентов, чье имя начинается с большой буквы А");
+        return studentRepository.findAll()
+                .stream()
+                .filter(s -> s.getName().toLowerCase().toUpperCase().startsWith("А"))
+                .collect(Collectors.toList());
+    }
 
 
-
+    public Integer getIntegerValue() {
+        long start = System.currentTimeMillis();
+        int sum = Stream.iterate(1, i -> i + 1)
+//                .parallel()             //38ms
+                .limit(1_000_000)
+//                .reduce(0, (a, b) -> a + b); //26ms
+                .mapToInt(value -> value)
+                .sum();  //18ms
+        long integerValue = System.currentTimeMillis() - start;
+        logger.info ("Время выполнения: " + integerValue + "ms");
+        return sum;
+    }
 }

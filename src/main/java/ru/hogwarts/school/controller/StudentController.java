@@ -10,6 +10,7 @@ import ru.hogwarts.school.service.StudentService;
 import javax.websocket.server.PathParam;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping("/students")
@@ -33,6 +34,11 @@ public class StudentController {
     @GetMapping("/allStudents")
     public Collection<Student> getAllStudents() {
         return studentService.getAllStudents();
+    }
+
+    @GetMapping("/allStudentsUpperCase")
+    public List <Student> getAllStudentsUpCase() {
+        return studentService.getAllStudentsUpCase();
     }
 
     @GetMapping("/age")
@@ -75,5 +81,9 @@ public class StudentController {
         return studentService.getFacultyByStudent(id);
     }
 
+    @GetMapping("/integerValue")
+    public Integer getIntegerValue() {
+        return studentService.getIntegerValue();
+    }
 
 }

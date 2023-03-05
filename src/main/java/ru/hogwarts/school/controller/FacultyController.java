@@ -44,6 +44,11 @@ public class FacultyController {
         return facultyService.getAllFaculties();
     }
 
+    @GetMapping("/longNameFaculty")
+    public String getLongNameFaculty() {
+        return facultyService.getLongNameFaculty();
+    }
+
 
     @GetMapping("/nameOrColor")
     public ResponseEntity<Collection<Faculty>> getByColorOrName(@RequestParam(required = false) String name,

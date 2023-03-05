@@ -10,6 +10,7 @@ import ru.hogwarts.school.repositories.FacultyRepository;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 
 @Service
@@ -77,4 +78,11 @@ public class FacultyService {
     }
 
 
+    public String getLongNameFaculty() {
+        return facultyRepository.findAll()
+                .stream()
+                .max(Comparator.comparing(s -> s.getName().length()))
+                .get()
+                .getName();
+    }
 }
