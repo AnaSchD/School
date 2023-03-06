@@ -37,7 +37,7 @@ public class StudentController {
     }
 
     @GetMapping("/allStudentsUpperCase")
-    public List <Student> getAllStudentsUpCase() {
+    public List<Student> getAllStudentsUpCase() {
         return studentService.getAllStudentsUpCase();
     }
 
@@ -84,6 +84,16 @@ public class StudentController {
     @GetMapping("/integerValue")
     public Integer getIntegerValue() {
         return studentService.getIntegerValue();
+    }
+
+    @GetMapping("/thread")
+    public void listStudents() {
+        studentService.listStudentsName();
+    }
+
+    @GetMapping("/threadSynchronized")
+    public void listStudentsSynchronized() {
+        studentService.listStudentsSynchronized();
     }
 
 }
